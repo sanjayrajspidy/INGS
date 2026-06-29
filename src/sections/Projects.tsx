@@ -1,0 +1,368 @@
+import React from 'react';
+import { motion as m } from 'framer-motion';
+import { Card } from '../components/Card';
+import { Button } from '../components/Button';
+import { ExternalLink, FileText, Send, Mic, Sparkles, Wand2, RefreshCw } from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
+
+interface Project {
+  id: number;
+  title: string;
+  subtitle: string;
+  overview: string;
+  purpose: string;
+  technologies: string[];
+  features: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  renderMock: () => React.ReactNode;
+}
+
+export const Projects: React.FC = () => {
+  const projectsData: Project[] = [
+    {
+      id: 1,
+      title: 'Twaddle',
+      subtitle: 'Real-Time Enterprise Chat Platform',
+      overview: 'A full-stack, real-time messaging ecosystem featuring secure OTP-based authentication, file distribution, and responsive audio interaction.',
+      purpose: 'Engineered to support low-latency, scalable real-time messaging with integrated user state and secure access channels.',
+      technologies: ['Node.js', 'Express.js', 'Socket.IO', 'SQLite', 'HTML5', 'CSS3', 'JavaScript'],
+      features: [
+        'Secure OTP-based user authentication',
+        'Real-time messages and file sharing protocols',
+        'Built-in speech voice input & dynamic typing indicators',
+        'Interactive custom chat themes',
+        'Optimized cross-device layouts & SQLite storage',
+        'Successfully deployed and run online using Render'
+      ],
+      githubUrl: 'https://github.com',
+      liveUrl: 'https://render.com',
+      renderMock: () => (
+        <div className="w-full h-72 rounded-xl bg-neutral-950 border border-white/5 overflow-hidden flex flex-col relative">
+          {/* Header */}
+          <div className="bg-neutral-900 px-4 py-2.5 flex items-center justify-between border-b border-white/5">
+            <div className="flex items-center gap-2">
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-semibold tracking-wide font-mono text-neutral-300">twaddle_chat_v1.0</span>
+            </div>
+            <div className="flex gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-white/10" />
+              <span className="w-2 h-2 rounded-full bg-white/10" />
+            </div>
+          </div>
+          {/* Chat Interface */}
+          <div className="flex-1 p-4 space-y-3.5 overflow-y-auto text-[10px] font-sans">
+            <div className="flex items-start gap-2">
+              <div className="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-[9px]">S</div>
+              <div className="bg-neutral-900 border border-white/5 text-neutral-200 px-2.5 py-1.5 rounded-lg max-w-[70%]">
+                Hey team! Testing the socket connection and voice inputs.
+              </div>
+            </div>
+            <div className="flex items-start gap-2 justify-end">
+              <div className="bg-purple-900/40 border border-purple-500/20 text-neutral-100 px-2.5 py-1.5 rounded-lg max-w-[70%] text-right">
+                Connection established. Typing indicator works flawlessly.
+              </div>
+              <div className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-[9px]">U</div>
+            </div>
+            <div className="flex items-start gap-2">
+              <div className="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-[9px]">S</div>
+              <div className="bg-neutral-900 border border-white/5 text-neutral-300 px-2.5 py-1.5 rounded-lg max-w-[70%] flex items-center gap-1.5">
+                <Mic className="w-3 h-3 text-red-400 animate-pulse" />
+                <span className="italic">Audio message (0:14)</span>
+              </div>
+            </div>
+            {/* Typing Indicator */}
+            <div className="flex items-center gap-1.5 text-neutral-500 pl-8 text-[9px]">
+              <span>User is typing</span>
+              <span className="flex gap-0.5">
+                <span className="w-1 h-1 bg-neutral-500 rounded-full animate-bounce" />
+                <span className="w-1 h-1 bg-neutral-500 rounded-full animate-bounce [animation-delay:0.2s]" />
+                <span className="w-1 h-1 bg-neutral-500 rounded-full animate-bounce [animation-delay:0.4s]" />
+              </span>
+            </div>
+          </div>
+          {/* Footer Input Bar */}
+          <div className="p-2.5 bg-neutral-900/60 border-t border-white/5 flex items-center gap-2">
+            <div className="flex-1 bg-neutral-950 rounded-md border border-white/5 px-2.5 py-1.5 text-[9px] text-neutral-500 flex items-center justify-between">
+              <span>Write message...</span>
+              <div className="flex gap-2 text-neutral-400">
+                <Mic className="w-3.5 h-3.5 hover:text-white cursor-pointer" />
+                <Send className="w-3.5 h-3.5 hover:text-white cursor-pointer" />
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 2,
+      title: 'Dynamic Question Paper Generator',
+      subtitle: 'Automated Curriculum Evaluation Platform',
+      overview: 'A smart assessment-engine built to programmatically aggregate and format examination scripts from multi-tier question pools.',
+      purpose: 'Developed to eliminate repetitive formatting chores and automate balanced difficulty-curve creation for academic staff.',
+      technologies: ['PHP', 'HTML5', 'CSS3', 'SQL'],
+      features: [
+        'Subject-centric question banking system',
+        'Algorithmic paper generation based on rules',
+        'Automatic standardized exam-sheet formatting',
+        'Reduced administrative latency by 80%',
+        'Granular difficulty and subject weight management'
+      ],
+      githubUrl: 'https://github.com',
+      renderMock: () => (
+        <div className="w-full h-72 rounded-xl bg-neutral-950 border border-white/5 overflow-hidden flex flex-col relative p-4 space-y-3 justify-center">
+          {/* Grid visual */}
+          <div className="flex items-center justify-between border-b border-white/5 pb-2">
+            <div className="flex items-center gap-1.5">
+              <FileText className="w-4 h-4 text-purple-400" />
+              <span className="text-xs font-semibold text-neutral-200 font-display">Exam Generator Portal</span>
+            </div>
+            <span className="text-[10px] font-mono text-neutral-500">v1.2.0</span>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 flex-1">
+            <div className="col-span-1 border border-white/5 bg-neutral-900/60 rounded-lg p-2.5 flex flex-col justify-between">
+              <div className="space-y-1">
+                <span className="text-[8px] font-mono text-neutral-500 uppercase">Step 1: Scope</span>
+                <div className="text-[10px] font-semibold text-neutral-300">Data Structures</div>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[8px] font-mono text-neutral-500 uppercase">Step 2: Balance</span>
+                <div className="text-[10px] text-neutral-400">30% Easy, 50% Medium, 20% Hard</div>
+              </div>
+              <button className="w-full bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/20 py-1 rounded text-[9px] font-mono flex items-center justify-center gap-1 mt-2">
+                <RefreshCw className="w-3 h-3 animate-spin-slow" />
+                Generate
+              </button>
+            </div>
+            
+            <div className="col-span-2 border border-white/5 bg-neutral-900/40 rounded-lg p-3 flex flex-col justify-between overflow-hidden">
+              <div className="flex justify-between items-center border-b border-white/5 pb-1">
+                <span className="text-[9px] font-mono text-neutral-400">Generated_Paper_2026.pdf</span>
+                <span className="text-[8px] bg-green-500/10 text-green-400 border border-green-500/20 px-1 rounded">Formatted</span>
+              </div>
+              <div className="flex-1 flex flex-col justify-center space-y-1.5 py-2 font-mono text-[8px] text-neutral-500">
+                <div className="text-neutral-400">Q1. Explain the differences between BST and AVL trees. [10M]</div>
+                <div>Q2. Implement a circular queue utilizing array-based storage. [5M]</div>
+                <div>Q3. Formulate the time complexity analysis of heap sort. [10M]</div>
+              </div>
+              <div className="w-full flex justify-end">
+                <span className="text-[8px] text-neutral-500">Total Weight: 100 Marks</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 3,
+      title: 'AI Chatbot & Speech-to-Text',
+      subtitle: 'Cognitive Voice Interaction Engine',
+      overview: 'A collection of experimental AI-driven nodes that unify voice capture, real-time vocal spectrum decoding, and responsive chatbot dialogue.',
+      purpose: 'Explored neural text generation pathways and optimized client-side voice processing to improve interface accessibility.',
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'AI Tools', 'Web Speech API'],
+      features: [
+        'Real-time voice processing and translation',
+        'Responsive client-side cognitive chatbot interactions',
+        'Direct speech-to-text text-stream injection',
+        'Client-side state management for fast interactions',
+        'Sleek modern minimalist AI dashboard UI'
+      ],
+      githubUrl: 'https://github.com',
+      renderMock: () => (
+        <div className="w-full h-72 rounded-xl bg-neutral-950 border border-white/5 overflow-hidden flex flex-col justify-between relative p-4">
+          {/* Top Panel */}
+          <div className="flex items-center justify-between border-b border-white/5 pb-2.5">
+            <div className="flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-blue-400" />
+              <span className="text-xs font-semibold text-neutral-200 font-display">Cognitive Voice Hub</span>
+            </div>
+            <div className="flex items-center gap-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full text-[8px] font-mono">
+              <Wand2 className="w-2.5 h-2.5" />
+              AI Active
+            </div>
+          </div>
+
+          {/* Voice Spectrum representation */}
+          <div className="flex-1 flex flex-col justify-center items-center space-y-4">
+            <div className="flex items-center justify-center gap-1.5 h-12 w-full">
+              {[0.3, 0.7, 0.5, 0.9, 0.4, 0.8, 0.6, 0.9, 0.4, 0.7, 0.3].map((val, i) => (
+                <m.div
+                  key={i}
+                  animate={{ height: [12, val * 48, 12] }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 1 + Math.random(),
+                    ease: 'easeInOut'
+                  }}
+                  className="w-1 bg-gradient-to-t from-blue-600 via-purple-400 to-indigo-300 rounded-full"
+                />
+              ))}
+            </div>
+            <div className="text-center space-y-1">
+              <div className="text-[10px] text-neutral-400 font-mono">Listening and transcribing...</div>
+              <div className="text-xs font-medium text-white italic">"Design a premium portfolio experience..."</div>
+            </div>
+          </div>
+
+          {/* Transcript Preview */}
+          <div className="bg-neutral-900/60 border border-white/5 p-2 rounded-lg flex items-center justify-between text-[9px] font-mono text-neutral-400">
+            <span>Confidence: 98.4%</span>
+            <span className="text-blue-400">Processed in 120ms</span>
+          </div>
+        </div>
+      )
+    }
+  ];
+
+  return (
+    <section id="projects" className="py-24 px-4 bg-gradient-to-b from-transparent to-neutral-950/40 relative">
+      <div className="max-w-6xl mx-auto space-y-24">
+        
+        {/* Header */}
+        <div className="text-center md:text-left space-y-4">
+          <m.span
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-xs font-semibold tracking-widest text-purple-400 uppercase font-mono block"
+          >
+            Engineering Portfolio
+          </m.span>
+          <m.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-3xl sm:text-4xl font-bold tracking-tight text-white font-display"
+          >
+            What I Build
+          </m.h2>
+          <m.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-neutral-400 font-light max-w-xl text-sm sm:text-base"
+          >
+            Presenting my core development work as products, emphasizing clean architectural layout, scalability, and technical detail.
+          </m.p>
+        </div>
+
+        {/* Project List */}
+        <div className="space-y-32">
+          {projectsData.map((project, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <div
+                key={project.id}
+                className={`grid grid-cols-1 lg:grid-cols-12 gap-12 items-center`}
+              >
+                {/* Content Panel */}
+                <m.div
+                  initial={{ opacity: 0, x: isEven ? -40 : 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.7, ease: 'easeOut' }}
+                  className={`lg:col-span-6 space-y-6 ${!isEven ? 'lg:order-2' : ''}`}
+                >
+                  <div className="space-y-2">
+                    <span className="text-xs font-mono text-purple-400 font-semibold uppercase tracking-wider">
+                      Product {project.id}
+                    </span>
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm font-medium text-neutral-400 font-mono">
+                      {project.subtitle}
+                    </p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-1">Overview</h4>
+                      <p className="text-neutral-300 font-light text-sm sm:text-base leading-relaxed">
+                        {project.overview}
+                      </p>
+                    </div>
+
+                    <div>
+                      <h4 className="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-1">Purpose</h4>
+                      <p className="text-neutral-400 font-light text-xs sm:text-sm leading-relaxed">
+                        {project.purpose}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Features list */}
+                  <div className="space-y-2">
+                    <h4 className="text-xs font-mono text-neutral-500 uppercase tracking-widest">Key Pillars</h4>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-400">
+                      {project.features.map((feature, fIdx) => (
+                        <li key={fIdx} className="flex items-start gap-1.5">
+                          <span className="text-purple-400 shrink-0 mt-0.5">▪</span>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Technologies tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className="bg-neutral-900 border border-white/5 rounded-full px-3 py-1 text-[10px] font-mono text-neutral-400 hover:text-white hover:border-white/10 transition-colors"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-4 pt-2">
+                    {project.githubUrl && (
+                      <Button
+                        variant="secondary"
+                        onClick={() => window.open(project.githubUrl, '_blank')}
+                        className="gap-2 px-5 py-2"
+                      >
+                        <FaGithub className="w-4 h-4 text-neutral-400" />
+                        Code Repository
+                      </Button>
+                    )}
+                    {project.liveUrl && (
+                      <Button
+                        variant="primary"
+                        onClick={() => window.open(project.liveUrl, '_blank')}
+                        className="gap-2 px-5 py-2"
+                      >
+                        <ExternalLink className="w-4 h-4 text-black" />
+                        Live Blueprint
+                      </Button>
+                    )}
+                  </div>
+                </m.div>
+
+                {/* Mock Visual representation Panel */}
+                <m.div
+                  initial={{ opacity: 0, x: isEven ? 40 : -40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.7, ease: 'easeOut' }}
+                  className={`lg:col-span-6 w-full ${!isEven ? 'lg:order-1' : ''}`}
+                >
+                  <Card className="p-1.5 sm:p-2 bg-neutral-950/40 glow-card" glowColor="rgba(96, 165, 250, 0.06)">
+                    {project.renderMock()}
+                  </Card>
+                </m.div>
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
+    </section>
+  );
+};
