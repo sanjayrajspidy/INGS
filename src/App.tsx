@@ -10,19 +10,19 @@ import { Leadership } from './sections/Leadership';
 import { Contact } from './sections/Contact';
 import { Terminal, Menu, X, ArrowUpCircle } from 'lucide-react';
 
+const navItems = [
+  { label: 'Journey', id: 'journey' },
+  { label: 'What I Build', id: 'projects' },
+  { label: 'Toolbox', id: 'toolbox' },
+  { label: 'Credentials', id: 'certifications' },
+  { label: 'Leadership', id: 'leadership' },
+  { label: 'Contact', id: 'contact' },
+];
+
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  const navItems = [
-    { label: 'Journey', id: 'journey' },
-    { label: 'What I Build', id: 'projects' },
-    { label: 'Toolbox', id: 'toolbox' },
-    { label: 'Credentials', id: 'certifications' },
-    { label: 'Leadership', id: 'leadership' },
-    { label: 'Contact', id: 'contact' },
-  ];
 
   useEffect(() => {
     const handleScroll = () => {

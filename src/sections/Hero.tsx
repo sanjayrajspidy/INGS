@@ -229,9 +229,7 @@ export const Hero: React.FC = () => {
             {/* Editor Workspace */}
             <div className="p-4 sm:p-6 bg-neutral-950/20 font-mono text-[10px] sm:text-[11px] md:text-xs text-neutral-300 leading-relaxed overflow-x-auto whitespace-pre min-h-[260px]">
               <div className="flex flex-col space-y-1">
-                {terminalLines
-                .filter((line): line is string => typeof line === "string")
-                .map((line, idx) => (
+                {terminalLines.map((line, idx) => (
                   <div key={idx} className="flex flex-wrap">
                     <span className={
                         line?.startsWith("sanjay")

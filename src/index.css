@@ -13,6 +13,7 @@
   --color-accent-purple: #c084fc;
   --color-accent-blue: #60a5fa;
   --color-accent-gold: #fbbf24;
+  --animate-spin-slow: spin 8s linear infinite;
 }
 
 /* Custom Base Styles */

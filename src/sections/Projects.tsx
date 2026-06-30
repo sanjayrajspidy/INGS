@@ -2,7 +2,7 @@ import React from 'react';
 import { motion as m } from 'framer-motion';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
-import { ExternalLink, FileText, Send, Mic, Sparkles, Wand2, RefreshCw } from 'lucide-react';
+import { ExternalLink, FileText, Send, Mic, Sparkles, Wand2, RefreshCw, Train, Clock } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 
 interface Project {
@@ -23,29 +23,28 @@ export const Projects: React.FC = () => {
     {
       id: 1,
       title: 'Twaddle',
-      subtitle: 'Real-Time Enterprise Chat Platform',
-      overview: 'A full-stack, real-time messaging ecosystem featuring secure OTP-based authentication, file distribution, and responsive audio interaction.',
-      purpose: 'Engineered to support low-latency, scalable real-time messaging with integrated user state and secure access channels.',
+      subtitle: 'Real-Time Communication Platform',
+      overview: 'An instant messaging platform designed to support secure real-time messaging, collaborative channels, and low-latency file sharing.',
+      purpose: 'Engineered to support seamless real-time communication with instant delivery, secure OTP verification, and dynamic typing states.',
       technologies: ['Node.js', 'Express.js', 'Socket.IO', 'SQLite', 'HTML5', 'CSS3', 'JavaScript'],
       features: [
         'Secure OTP-based user authentication',
-        'Real-time messages and file sharing protocols',
-        'Built-in speech voice input & dynamic typing indicators',
-        'Interactive custom chat themes',
-        'Optimized cross-device layouts & SQLite storage',
-        'Successfully deployed and run online using Render'
+        'Real-time message transmission & collaborative channels',
+        'Dynamic typing indicators & presence state tracking',
+        'Responsive speech-to-text voice input integrations',
+        'Custom interactive chat themes and styling presets',
+        'Persistent storage optimized via local SQLite database'
       ],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://render.com',
+      githubUrl: 'https://github.com/sanjayrajspidy',
       renderMock: () => (
-        <div className="w-full h-72 rounded-xl bg-neutral-950 border border-white/5 overflow-hidden flex flex-col relative">
+        <div className="w-full h-72 rounded-xl bg-neutral-950 border border-white/5 overflow-hidden flex flex-col relative" aria-label="Twaddle Chat Client Mockup">
           {/* Header */}
           <div className="bg-neutral-900 px-4 py-2.5 flex items-center justify-between border-b border-white/5">
             <div className="flex items-center gap-2">
-              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
               <span className="text-xs font-semibold tracking-wide font-mono text-neutral-300">twaddle_chat_v1.0</span>
             </div>
-            <div className="flex gap-1.5">
+            <div className="flex gap-1.5" aria-hidden="true">
               <span className="w-2 h-2 rounded-full bg-white/10" />
               <span className="w-2 h-2 rounded-full bg-white/10" />
             </div>
@@ -67,14 +66,14 @@ export const Projects: React.FC = () => {
             <div className="flex items-start gap-2">
               <div className="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-[9px]">S</div>
               <div className="bg-neutral-900 border border-white/5 text-neutral-300 px-2.5 py-1.5 rounded-lg max-w-[70%] flex items-center gap-1.5">
-                <Mic className="w-3 h-3 text-red-400 animate-pulse" />
+                <Mic className="w-3 h-3 text-red-400 animate-pulse" aria-hidden="true" />
                 <span className="italic">Audio message (0:14)</span>
               </div>
             </div>
             {/* Typing Indicator */}
             <div className="flex items-center gap-1.5 text-neutral-500 pl-8 text-[9px]">
               <span>User is typing</span>
-              <span className="flex gap-0.5">
+              <span className="flex gap-0.5" aria-hidden="true">
                 <span className="w-1 h-1 bg-neutral-500 rounded-full animate-bounce" />
                 <span className="w-1 h-1 bg-neutral-500 rounded-full animate-bounce [animation-delay:0.2s]" />
                 <span className="w-1 h-1 bg-neutral-500 rounded-full animate-bounce [animation-delay:0.4s]" />
@@ -86,8 +85,8 @@ export const Projects: React.FC = () => {
             <div className="flex-1 bg-neutral-950 rounded-md border border-white/5 px-2.5 py-1.5 text-[9px] text-neutral-500 flex items-center justify-between">
               <span>Write message...</span>
               <div className="flex gap-2 text-neutral-400">
-                <Mic className="w-3.5 h-3.5 hover:text-white cursor-pointer" />
-                <Send className="w-3.5 h-3.5 hover:text-white cursor-pointer" />
+                <Mic className="w-3.5 h-3.5 hover:text-white cursor-pointer" aria-label="Microphone" />
+                <Send className="w-3.5 h-3.5 hover:text-white cursor-pointer" aria-label="Send" />
               </div>
             </div>
           </div>
@@ -98,23 +97,23 @@ export const Projects: React.FC = () => {
       id: 2,
       title: 'Dynamic Question Paper Generator',
       subtitle: 'Automated Curriculum Evaluation Platform',
-      overview: 'A smart assessment-engine built to programmatically aggregate and format examination scripts from multi-tier question pools.',
-      purpose: 'Developed to eliminate repetitive formatting chores and automate balanced difficulty-curve creation for academic staff.',
+      overview: 'An automated examination generation platform designed to help faculty members programmatically construct and format balanced assessment papers from structured question databases.',
+      purpose: 'Developed to eliminate repetitive manual formatting chores and automate balanced difficulty-curve selection for academic staff.',
       technologies: ['PHP', 'HTML5', 'CSS3', 'SQL'],
       features: [
-        'Subject-centric question banking system',
-        'Algorithmic paper generation based on rules',
-        'Automatic standardized exam-sheet formatting',
-        'Reduced administrative latency by 80%',
-        'Granular difficulty and subject weight management'
+        'Automated paper generation and formatting for faculty members',
+        'Subject-centric structured question banking system',
+        'Algorithmic weight balancing based on difficulty rules',
+        'Standardized export-ready examination templates',
+        'Drastically reduced administrative prep time by 80%'
       ],
-      githubUrl: 'https://github.com',
+      githubUrl: 'https://github.com/sanjayrajspidy',
       renderMock: () => (
-        <div className="w-full h-72 rounded-xl bg-neutral-950 border border-white/5 overflow-hidden flex flex-col relative p-4 space-y-3 justify-center">
+        <div className="w-full h-72 rounded-xl bg-neutral-950 border border-white/5 overflow-hidden flex flex-col relative p-4 space-y-3 justify-center" aria-label="Question Paper Generator Console">
           {/* Grid visual */}
           <div className="flex items-center justify-between border-b border-white/5 pb-2">
             <div className="flex items-center gap-1.5">
-              <FileText className="w-4 h-4 text-purple-400" />
+              <FileText className="w-4 h-4 text-purple-400" aria-hidden="true" />
               <span className="text-xs font-semibold text-neutral-200 font-display">Exam Generator Portal</span>
             </div>
             <span className="text-[10px] font-mono text-neutral-500">v1.2.0</span>
@@ -130,8 +129,8 @@ export const Projects: React.FC = () => {
                 <span className="text-[8px] font-mono text-neutral-500 uppercase">Step 2: Balance</span>
                 <div className="text-[10px] text-neutral-400">30% Easy, 50% Medium, 20% Hard</div>
               </div>
-              <button className="w-full bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/20 py-1 rounded text-[9px] font-mono flex items-center justify-center gap-1 mt-2">
-                <RefreshCw className="w-3 h-3 animate-spin-slow" />
+              <button className="w-full bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/20 py-1 rounded text-[9px] font-mono flex items-center justify-center gap-1 mt-2 cursor-pointer transition-colors" aria-label="Re-generate Question Paper">
+                <RefreshCw className="w-3 h-3 animate-spin-slow" aria-hidden="true" />
                 Generate
               </button>
             </div>
@@ -156,29 +155,29 @@ export const Projects: React.FC = () => {
     },
     {
       id: 3,
-      title: 'AI Chatbot & Speech-to-Text',
-      subtitle: 'Cognitive Voice Interaction Engine',
-      overview: 'A collection of experimental AI-driven nodes that unify voice capture, real-time vocal spectrum decoding, and responsive chatbot dialogue.',
-      purpose: 'Explored neural text generation pathways and optimized client-side voice processing to improve interface accessibility.',
-      technologies: ['HTML5', 'CSS3', 'JavaScript', 'AI Tools', 'Web Speech API'],
+      title: 'Lyria',
+      subtitle: 'Intelligent Academic Assistant',
+      overview: 'An AI-powered academic assistant that helps students learn through intelligent conversations and contextual responses.',
+      purpose: 'Engineered to deliver real-time, context-aware educational guidance and support personalized learning paths.',
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Web Speech API', 'AI Tools'],
       features: [
-        'Real-time voice processing and translation',
-        'Responsive client-side cognitive chatbot interactions',
-        'Direct speech-to-text text-stream injection',
-        'Client-side state management for fast interactions',
-        'Sleek modern minimalist AI dashboard UI'
+        'Intelligent conversations with contextual explanations',
+        'Personalized student learning paths and interactive query support',
+        'Voice-enabled interface with low-latency client-side speech API',
+        'Seamless state management for persistent learning sessions',
+        'Sleek, premium minimalist dashboard UI'
       ],
-      githubUrl: 'https://github.com',
+      githubUrl: 'https://github.com/sanjayrajspidy',
       renderMock: () => (
-        <div className="w-full h-72 rounded-xl bg-neutral-950 border border-white/5 overflow-hidden flex flex-col justify-between relative p-4">
+        <div className="w-full h-72 rounded-xl bg-neutral-950 border border-white/5 overflow-hidden flex flex-col justify-between relative p-4" aria-label="Lyria Conversational AI Interface">
           {/* Top Panel */}
           <div className="flex items-center justify-between border-b border-white/5 pb-2.5">
             <div className="flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-blue-400" />
-              <span className="text-xs font-semibold text-neutral-200 font-display">Cognitive Voice Hub</span>
+              <Sparkles className="w-4 h-4 text-blue-400" aria-hidden="true" />
+              <span className="text-xs font-semibold text-neutral-200 font-display">Lyria Academic AI</span>
             </div>
             <div className="flex items-center gap-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full text-[8px] font-mono">
-              <Wand2 className="w-2.5 h-2.5" />
+              <Wand2 className="w-2.5 h-2.5" aria-hidden="true" />
               AI Active
             </div>
           </div>
@@ -200,15 +199,87 @@ export const Projects: React.FC = () => {
               ))}
             </div>
             <div className="text-center space-y-1">
-              <div className="text-[10px] text-neutral-400 font-mono">Listening and transcribing...</div>
-              <div className="text-xs font-medium text-white italic">"Design a premium portfolio experience..."</div>
+              <div className="text-[10px] text-neutral-400 font-mono">Conversing on Academic Topic...</div>
+              <div className="text-xs font-medium text-white italic">"Explain the time complexity of quicksort..."</div>
             </div>
           </div>
 
           {/* Transcript Preview */}
           <div className="bg-neutral-900/60 border border-white/5 p-2 rounded-lg flex items-center justify-between text-[9px] font-mono text-neutral-400">
-            <span>Confidence: 98.4%</span>
-            <span className="text-blue-400">Processed in 120ms</span>
+            <span>Context: Algorithm Analysis</span>
+            <span className="text-blue-400">Response time: 140ms</span>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 4,
+      title: 'Railway Assistant',
+      subtitle: 'Conversational AI & Info Retrieval Platform',
+      overview: 'A conversational AI agent engineered for real-time railway information retrieval, scheduling updates, and user support.',
+      purpose: 'Developed to simplify travel planning by providing instant, low-latency conversational access to railway schedules and route statuses.',
+      technologies: ['Node.js', 'Express.js', 'Socket.IO', 'SQLite', 'Web Speech API'],
+      features: [
+        'Conversational interface for instant railway query resolution',
+        'Real-time schedule indexing and route tracking',
+        'Integrated speech-to-text input capability',
+        'Optimized data pipeline for rapid database query execution',
+        'Responsive layout with a premium live-ticker visualization'
+      ],
+      githubUrl: 'https://github.com/sanjayrajspidy',
+      renderMock: () => (
+        <div className="w-full h-72 rounded-xl bg-neutral-950 border border-white/5 overflow-hidden flex flex-col justify-between relative p-4" aria-label="Railway Info System Dashboard">
+          {/* Top Panel */}
+          <div className="flex items-center justify-between border-b border-white/5 pb-2.5">
+            <div className="flex items-center gap-1.5">
+              <Train className="w-4 h-4 text-amber-400" aria-hidden="true" />
+              <span className="text-xs font-semibold text-neutral-200 font-display">Railway Info Agent</span>
+            </div>
+            <div className="flex items-center gap-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-full text-[8px] font-mono">
+              <Clock className="w-2.5 h-2.5" aria-hidden="true" />
+              Live Tracker
+            </div>
+          </div>
+
+          {/* Console Dialogue & Tracker */}
+          <div className="flex-1 flex flex-col justify-center space-y-3 py-2 text-[10px] font-mono">
+            {/* Terminal Text lines */}
+            <div className="space-y-2">
+              <div className="flex items-start gap-1 text-neutral-400">
+                <span className="text-purple-400 font-bold">&gt;</span>
+                <span>Query: Train 12626 running status?</span>
+              </div>
+              <div className="bg-neutral-900/80 border border-white/5 rounded-lg p-2 text-neutral-200">
+                <div className="text-neutral-400 text-[9px] uppercase tracking-wider mb-1 font-semibold text-amber-400/90">Agent Response</div>
+                Train 12626 (Kerala Express) is active and running. Next Halting: Nagpur (NGP) at 15:40 (On Time).
+              </div>
+            </div>
+
+            {/* Visual Progress Bar of Train */}
+            <div className="border border-white/5 bg-neutral-900/40 rounded-lg p-2 space-y-1.5">
+              <div className="flex justify-between text-[8px] text-neutral-500">
+                <span>New Delhi (NDLS)</span>
+                <span>Trivandrum (TVC)</span>
+              </div>
+              <div className="w-full bg-neutral-950 rounded-full h-1.5 relative border border-white/5">
+                {/* Completed Line */}
+                <div className="bg-amber-400 h-full w-[45%] rounded-full" />
+                {/* Animated train dot */}
+                <div className="absolute top-1/2 left-[45%] -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-amber-400 border border-neutral-950 flex items-center justify-center">
+                  <span className="absolute w-full h-full bg-amber-400 rounded-full animate-ping opacity-75" aria-hidden="true" />
+                </div>
+              </div>
+              <div className="flex justify-between text-[8px] text-neutral-400">
+                <span>Completed: 45%</span>
+                <span>ETA: 19h 20m</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Info bar */}
+          <div className="bg-neutral-900/60 border border-white/5 p-2 rounded-lg flex items-center justify-between text-[9px] font-mono text-neutral-400">
+            <span>SQLite DB Indexed</span>
+            <span className="text-amber-400">Sync status: OK</span>
           </div>
         </div>
       )
@@ -255,9 +326,10 @@ export const Projects: React.FC = () => {
           {projectsData.map((project, index) => {
             const isEven = index % 2 === 0;
             return (
-              <div
+              <article
                 key={project.id}
-                className={`grid grid-cols-1 lg:grid-cols-12 gap-12 items-center`}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+                aria-labelledby={`project-title-${project.id}`}
               >
                 {/* Content Panel */}
                 <m.div
@@ -265,13 +337,16 @@ export const Projects: React.FC = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.7, ease: 'easeOut' }}
-                  className={`lg:col-span-6 space-y-6 ${!isEven ? 'lg:order-2' : ''}`}
+                  className="lg:col-span-6 space-y-6"
                 >
                   <div className="space-y-2">
                     <span className="text-xs font-mono text-purple-400 font-semibold uppercase tracking-wider">
                       Product {project.id}
                     </span>
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display">
+                    <h3
+                      id={`project-title-${project.id}`}
+                      className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display"
+                    >
                       {project.title}
                     </h3>
                     <p className="text-sm font-medium text-neutral-400 font-mono">
@@ -301,7 +376,7 @@ export const Projects: React.FC = () => {
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-400">
                       {project.features.map((feature, fIdx) => (
                         <li key={fIdx} className="flex items-start gap-1.5">
-                          <span className="text-purple-400 shrink-0 mt-0.5">▪</span>
+                          <span className="text-purple-400 shrink-0 mt-0.5" aria-hidden="true">▪</span>
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -327,8 +402,9 @@ export const Projects: React.FC = () => {
                         variant="secondary"
                         onClick={() => window.open(project.githubUrl, '_blank')}
                         className="gap-2 px-5 py-2"
+                        aria-label={`View GitHub repository for ${project.title}`}
                       >
-                        <FaGithub className="w-4 h-4 text-neutral-400" />
+                        <FaGithub className="w-4 h-4 text-neutral-400" aria-hidden="true" />
                         Code Repository
                       </Button>
                     )}
@@ -337,8 +413,9 @@ export const Projects: React.FC = () => {
                         variant="primary"
                         onClick={() => window.open(project.liveUrl, '_blank')}
                         className="gap-2 px-5 py-2"
+                        aria-label={`View live blueprint for ${project.title}`}
                       >
-                        <ExternalLink className="w-4 h-4 text-black" />
+                        <ExternalLink className="w-4 h-4 text-black" aria-hidden="true" />
                         Live Blueprint
                       </Button>
                     )}
@@ -351,13 +428,13 @@ export const Projects: React.FC = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.7, ease: 'easeOut' }}
-                  className={`lg:col-span-6 w-full ${!isEven ? 'lg:order-1' : ''}`}
+                  className="lg:col-span-6 w-full"
                 >
                   <Card className="p-1.5 sm:p-2 bg-neutral-950/40 glow-card" glowColor="rgba(96, 165, 250, 0.06)">
                     {project.renderMock()}
                   </Card>
                 </m.div>
-              </div>
+              </article>
             );
           })}
         </div>
