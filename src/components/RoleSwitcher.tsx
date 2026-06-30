@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const roles = [
-  'Artificial Intelligence Spec.',
-  'ServiceNow CSA & CAD Developer',
-  'Full-Stack Web Engineer',
-  'Algorand Club Team Lead',
+  'Full Stack Developer',
+  'AI Enthusiast',
+  'Software Builder',
+  'Problem Solver',
 ];
 
 export const RoleSwitcher: React.FC = () => {

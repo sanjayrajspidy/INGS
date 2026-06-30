@@ -84,7 +84,7 @@ const App: React.FC = () => {
             <div className="w-7 h-7 rounded-lg bg-neutral-900 border border-white/10 flex items-center justify-center text-purple-400">
               <Terminal className="w-4 h-4" />
             </div>
-            <span>CS.SANJAY</span>
+            <span>CH.SANJAY</span>
           </button>
 
           {/* Desktop Nav Items */}
