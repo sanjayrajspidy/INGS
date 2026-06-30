@@ -234,7 +234,7 @@ export const Projects: React.FC = () => {
     },
     {
       id: 3,
-      title: 'Lyria',
+      title: 'LARIA',
       subtitle: 'Intelligent Academic Assistant',
       overview: 'An AI-powered academic assistant that helps students learn through intelligent conversations and contextual responses.',
       purpose: 'Engineered to deliver real-time, context-aware educational guidance and support personalized learning paths.',

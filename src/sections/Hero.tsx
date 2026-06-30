@@ -5,47 +5,60 @@ import { Button } from '../components/Button';
 import { Terminal, Code2, ArrowDownCircle, Mail, FileText, ChevronRight, Code } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
+const dashboardVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+    },
+  },
+} as const;
+
+const rowVariants = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: 'easeOut' as const,
+    },
+  },
+} as const;
+
 export const Hero: React.FC = () => {
   const [terminalLines, setTerminalLines] = useState<string[]>([]);
+  const [bootFinished, setBootFinished] = useState(false);
   
   useEffect(() => {
-  const lines = [
-    "sanjay@node:~$ init_system --verbose",
-    "[sys] Booting core kernel modules... OK",
-    "[sys] Connecting SQLite databases... Connected",
-    "[sys] Opening Socket.IO communication ports... OK",
-    "[sys] Mounting ServiceNow CAD/CSA credentials... Verified",
-    "[sys] Establishing Algorand network nodes... Online",
-    "--------------------------------",
-    "> system ready",
-    "Projects Loaded ........ OK",
-    "Skills Loaded .......... OK",
-    "GitHub Connected ....... OK",
-    "",
-    "Status:",
-    "Available for Internship",
-    "--------------------------------",
-    "sanjay@node:~$ "
-  ];
+    const lines = [
+      "sanjay@node:~$ init_system --verbose",
+      "[sys] Booting core kernel modules... OK",
+      "[sys] Connecting SQLite databases... Connected",
+      "[sys] Opening Socket.IO communication ports... OK",
+      "[sys] Mounting ServiceNow CAD/CSA credentials... Verified",
+      "[sys] Establishing Algorand network nodes... Online",
+      "> system ready"
+    ];
 
-  let currentLineIndex = 0;
+    let currentLineIndex = 0;
 
-  const interval = setInterval(() => {
-    if (currentLineIndex >= lines.length) {
-      clearInterval(interval);
-      return;
-    }
+    const interval = setInterval(() => {
+      if (currentLineIndex >= lines.length) {
+        clearInterval(interval);
+        setBootFinished(true);
+        return;
+      }
 
-    // Store the value before incrementing
-    const currentLine = lines[currentLineIndex];
+      const currentLine = lines[currentLineIndex];
 
-    setTerminalLines(prev => [...prev, currentLine]);
+      setTerminalLines(prev => [...prev, currentLine]);
 
-    currentLineIndex++;
-  }, 150);
+      currentLineIndex++;
+    }, 150);
 
-  return () => clearInterval(interval);
-}, []);
+    return () => clearInterval(interval);
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -227,7 +240,7 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Editor Workspace */}
-            <div className="p-4 sm:p-6 bg-neutral-950/20 font-mono text-[10px] sm:text-[11px] md:text-xs text-neutral-300 leading-relaxed overflow-x-auto whitespace-pre min-h-[260px]">
+            <div className="p-4 bg-neutral-950/20 font-mono text-[10px] sm:text-[11px] md:text-xs text-neutral-300 leading-relaxed overflow-x-auto whitespace-pre min-h-[290px] sm:min-h-[315px]">
               <div className="flex flex-col space-y-1">
                 {terminalLines.map((line, idx) => (
                   <div key={idx} className="flex flex-wrap">
@@ -242,12 +255,89 @@ export const Hero: React.FC = () => {
                       }
                     >
                       {line}
-                      {idx === terminalLines.length - 1 && (
+                      {idx === terminalLines.length - 1 && !bootFinished && (
                         <span className="animate-pulse inline-block w-1.5 h-4 bg-white/70 ml-1 align-middle" />
                       )}
                     </span>
                   </div>
                 ))}
+
+                {bootFinished && (
+                  <m.div
+                    variants={dashboardVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="space-y-3 mt-2"
+                  >
+                    {/* Separator 1 */}
+                    <m.div variants={rowVariants} className="text-neutral-500 leading-none">
+                      ========================================
+                    </m.div>
+
+                    {/* Header */}
+                    <m.div variants={rowVariants}>
+                      <h3 className="text-[10px] uppercase tracking-[0.25em] text-neutral-500 font-bold">
+                        PORTFOLIO STATUS
+                      </h3>
+                    </m.div>
+
+                    {/* Row 1: Role & Specialization */}
+                    <m.div variants={rowVariants} className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 whitespace-normal">
+                      <div className="space-y-0.5">
+                        <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-500 block">
+                          ROLE
+                        </span>
+                        <span className="text-white">Software Engineer</span>
+                      </div>
+                      <div className="space-y-0.5">
+                        <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-500 block">
+                          SPECIALIZATION
+                        </span>
+                        <span className="text-white">AI • Full Stack</span>
+                      </div>
+                    </m.div>
+
+                    {/* Row 2: Projects & Availability */}
+                    <m.div variants={rowVariants} className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 whitespace-normal">
+                      <div className="space-y-0.5">
+                        <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-500 block">
+                          PROJECTS
+                        </span>
+                        <span className="text-white">4 Production Apps</span>
+                      </div>
+                      <div className="space-y-0.5">
+                        <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-500 block">
+                          AVAILABILITY
+                        </span>
+                        <span className="text-emerald-400 font-semibold">Open for Internship</span>
+                      </div>
+                    </m.div>
+
+                    {/* Row 3: Credentials */}
+                    <m.div variants={rowVariants} className="space-y-0.5 whitespace-normal">
+                      <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-500 block">
+                        CREDENTIALS
+                      </span>
+                      <span className="text-white">AWS • ServiceNow CSA • ServiceNow CAD</span>
+                    </m.div>
+
+                    {/* Separator 2 */}
+                    <m.div variants={rowVariants} className="text-neutral-500 leading-none">
+                      ========================================
+                    </m.div>
+
+                    {/* Ready Callout */}
+                    <m.div variants={rowVariants} className="text-emerald-400">
+                      ✓ Ready for collaboration.
+                    </m.div>
+
+                    {/* Final Prompt with Cursor */}
+                    <m.div variants={rowVariants} className="flex items-center text-purple-400">
+                      <span>sanjay@node:~$</span>
+                      <span className="animate-pulse inline-block w-1.5 h-4 bg-white/70 ml-1.5 align-middle" />
+                    </m.div>
+                  </m.div>
+                )}
               </div>
             </div>
 
