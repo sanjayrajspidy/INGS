@@ -1,8 +1,8 @@
-import React from 'react';
-import { motion as m } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion as m, AnimatePresence } from 'framer-motion';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
-import { ExternalLink, FileText, Send, Mic, Sparkles, Wand2, RefreshCw, Train, Clock } from 'lucide-react';
+import { ExternalLink, FileText, Send, Mic, Sparkles, Wand2, RefreshCw, Train, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 
 interface Project {
@@ -18,7 +18,86 @@ interface Project {
   renderMock: () => React.ReactNode;
 }
 
+interface AccentConfig {
+  color: string;
+  text: string;
+  bg: string;
+  border: string;
+  glow: string;
+  shadow: string;
+  hoverBorder: string;
+  hoverText: string;
+  dot: string;
+}
+
+const projectAccents: Record<number, AccentConfig> = {
+  1: { // Twaddle -> Purple
+    color: '#c084fc',
+    text: 'text-purple-400',
+    bg: 'bg-purple-500',
+    border: 'border-purple-500/20',
+    glow: 'rgba(192, 132, 252, 0.15)',
+    shadow: 'rgba(192, 132, 252, 0.06)',
+    hoverBorder: 'hover:border-purple-400/30',
+    hoverText: 'hover:text-purple-300',
+    dot: 'bg-purple-400 shadow-[0_0_12px_rgba(192,132,252,0.5)]'
+  },
+  2: { // Question Paper Generator -> Amber
+    color: '#fbbf24',
+    text: 'text-amber-400',
+    bg: 'bg-amber-500',
+    border: 'border-amber-500/20',
+    glow: 'rgba(251, 191, 36, 0.15)',
+    shadow: 'rgba(251, 191, 36, 0.06)',
+    hoverBorder: 'hover:border-amber-400/30',
+    hoverText: 'hover:text-amber-300',
+    dot: 'bg-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.5)]'
+  },
+  3: { // Lyria -> Emerald
+    color: '#34d399',
+    text: 'text-emerald-400',
+    bg: 'bg-emerald-500',
+    border: 'border-emerald-500/20',
+    glow: 'rgba(52, 211, 153, 0.15)',
+    shadow: 'rgba(52, 211, 153, 0.06)',
+    hoverBorder: 'hover:border-emerald-400/30',
+    hoverText: 'hover:text-emerald-300',
+    dot: 'bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.5)]'
+  },
+  4: { // Railway Assistant -> Blue
+    color: '#60a5fa',
+    text: 'text-blue-400',
+    bg: 'bg-blue-500',
+    border: 'border-blue-500/20',
+    glow: 'rgba(96, 165, 250, 0.15)',
+    shadow: 'rgba(96, 165, 250, 0.06)',
+    hoverBorder: 'hover:border-blue-400/30',
+    hoverText: 'hover:text-blue-300',
+    dot: 'bg-blue-400 shadow-[0_0_12px_rgba(96,165,250,0.5)]'
+  }
+};
+
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 100 : -100,
+    opacity: 0
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1
+  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? 100 : -100,
+    opacity: 0
+  })
+};
+
 export const Projects: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
   const projectsData: Project[] = [
     {
       id: 1,
@@ -286,6 +365,24 @@ export const Projects: React.FC = () => {
     }
   ];
 
+  const handlePrev = () => {
+    setDirection(-1);
+    setActiveIndex((prev) => (prev === 0 ? projectsData.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setDirection(1);
+    setActiveIndex((prev) => (prev === projectsData.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleDotClick = (index: number) => {
+    setDirection(index > activeIndex ? 1 : -1);
+    setActiveIndex(index);
+  };
+
+  const project = projectsData[activeIndex];
+  const activeAccent = projectAccents[project.id];
+
   return (
     <section id="projects" className="py-24 px-4 bg-gradient-to-b from-transparent to-neutral-950/40 relative">
       <div className="max-w-6xl mx-auto space-y-24">
@@ -321,122 +418,167 @@ export const Projects: React.FC = () => {
           </m.p>
         </div>
 
-        {/* Project List */}
-        <div className="space-y-32">
-          {projectsData.map((project, index) => {
-            const isEven = index % 2 === 0;
-            return (
-              <article
-                key={project.id}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
-                aria-labelledby={`project-title-${project.id}`}
+        {/* Project Carousel Wrapper */}
+        <div className="relative w-full">
+          <AnimatePresence mode="wait" initial={false}>
+            <m.div
+              key={activeIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.25 }
+              }}
+              className="w-full"
+            >
+              <Card
+                className="p-6 sm:p-10 md:p-12 bg-neutral-950/40 glow-card w-full border transition-all duration-500"
+                style={{
+                  borderColor: `${activeAccent.color}20`,
+                  boxShadow: `0 0 50px -10px ${activeAccent.shadow}`
+                }}
+                glowColor={activeAccent.glow}
               >
-                {/* Content Panel */}
-                <m.div
-                  initial={{ opacity: 0, x: isEven ? -40 : 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={{ duration: 0.7, ease: 'easeOut' }}
-                  className="lg:col-span-6 space-y-6"
+                <article
+                  className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+                  aria-labelledby={`project-title-${project.id}`}
                 >
-                  <div className="space-y-2">
-                    <span className="text-xs font-mono text-purple-400 font-semibold uppercase tracking-wider">
-                      Product {project.id}
-                    </span>
-                    <h3
-                      id={`project-title-${project.id}`}
-                      className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display"
-                    >
-                      {project.title}
-                    </h3>
-                    <p className="text-sm font-medium text-neutral-400 font-mono">
-                      {project.subtitle}
-                    </p>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-1">Overview</h4>
-                      <p className="text-neutral-300 font-light text-sm sm:text-base leading-relaxed">
-                        {project.overview}
-                      </p>
-                    </div>
-
-                    <div>
-                      <h4 className="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-1">Purpose</h4>
-                      <p className="text-neutral-400 font-light text-xs sm:text-sm leading-relaxed">
-                        {project.purpose}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Features list */}
-                  <div className="space-y-2">
-                    <h4 className="text-xs font-mono text-neutral-500 uppercase tracking-widest">Key Pillars</h4>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-400">
-                      {project.features.map((feature, fIdx) => (
-                        <li key={fIdx} className="flex items-start gap-1.5">
-                          <span className="text-purple-400 shrink-0 mt-0.5" aria-hidden="true">▪</span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Technologies tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className="bg-neutral-900 border border-white/5 rounded-full px-3 py-1 text-[10px] font-mono text-neutral-400 hover:text-white hover:border-white/10 transition-colors"
-                      >
-                        {tech}
+                  {/* Content Panel */}
+                  <div className="lg:col-span-6 space-y-6">
+                    <div className="space-y-2">
+                      <span className={`text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-500 ${activeAccent.text}`}>
+                        Product {project.id}
                       </span>
-                    ))}
+                      <h3
+                        id={`project-title-${project.id}`}
+                        className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display"
+                      >
+                        {project.title}
+                      </h3>
+                      <p className="text-sm font-medium text-neutral-400 font-mono">
+                        {project.subtitle}
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-1">Overview</h4>
+                        <p className="text-neutral-300 font-light text-sm sm:text-base leading-relaxed">
+                          {project.overview}
+                        </p>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-1">Purpose</h4>
+                        <p className="text-neutral-400 font-light text-xs sm:text-sm leading-relaxed">
+                          {project.purpose}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Features list */}
+                    <div className="space-y-2">
+                      <h4 className="text-xs font-mono text-neutral-500 uppercase tracking-widest">Key Pillars</h4>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-400">
+                        {project.features.map((feature, fIdx) => (
+                          <li key={fIdx} className="flex items-start gap-1.5">
+                            <span className={`transition-colors duration-500 shrink-0 mt-0.5 ${activeAccent.text}`} aria-hidden="true">▪</span>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Technologies tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className={`bg-neutral-900 border border-white/5 rounded-full px-3 py-1 text-[10px] font-mono text-neutral-400 hover:text-white transition-all duration-300 ${activeAccent.hoverBorder}`}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-4 pt-2">
+                      {project.githubUrl && (
+                        <Button
+                          variant="secondary"
+                          onClick={() => window.open(project.githubUrl, '_blank')}
+                          className={`gap-2 px-5 py-2 transition-all duration-300 ${activeAccent.hoverBorder} ${activeAccent.hoverText}`}
+                          aria-label={`View GitHub repository for ${project.title}`}
+                        >
+                          <FaGithub className="w-4 h-4 text-neutral-400" aria-hidden="true" />
+                          Code Repository
+                        </Button>
+                      )}
+                      {project.liveUrl && (
+                        <Button
+                          variant="primary"
+                          onClick={() => window.open(project.liveUrl, '_blank')}
+                          className="gap-2 px-5 py-2"
+                          aria-label={`View live blueprint for ${project.title}`}
+                        >
+                          <ExternalLink className="w-4 h-4 text-black" aria-hidden="true" />
+                          Live Blueprint
+                        </Button>
+                      )}
+                    </div>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex gap-4 pt-2">
-                    {project.githubUrl && (
-                      <Button
-                        variant="secondary"
-                        onClick={() => window.open(project.githubUrl, '_blank')}
-                        className="gap-2 px-5 py-2"
-                        aria-label={`View GitHub repository for ${project.title}`}
-                      >
-                        <FaGithub className="w-4 h-4 text-neutral-400" aria-hidden="true" />
-                        Code Repository
-                      </Button>
-                    )}
-                    {project.liveUrl && (
-                      <Button
-                        variant="primary"
-                        onClick={() => window.open(project.liveUrl, '_blank')}
-                        className="gap-2 px-5 py-2"
-                        aria-label={`View live blueprint for ${project.title}`}
-                      >
-                        <ExternalLink className="w-4 h-4 text-black" aria-hidden="true" />
-                        Live Blueprint
-                      </Button>
-                    )}
+                  {/* Mock Visual representation Panel */}
+                  <div className="lg:col-span-6 w-full">
+                    <Card
+                      className="p-1.5 sm:p-2 bg-neutral-950/40 glow-card transition-all duration-500"
+                      glowColor={activeAccent.glow}
+                      style={{
+                        borderColor: `${activeAccent.color}15`
+                      }}
+                    >
+                      {project.renderMock()}
+                    </Card>
                   </div>
-                </m.div>
+                </article>
+              </Card>
+            </m.div>
+          </AnimatePresence>
 
-                {/* Mock Visual representation Panel */}
-                <m.div
-                  initial={{ opacity: 0, x: isEven ? 40 : -40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={{ duration: 0.7, ease: 'easeOut' }}
-                  className="lg:col-span-6 w-full"
-                >
-                  <Card className="p-1.5 sm:p-2 bg-neutral-950/40 glow-card" glowColor="rgba(96, 165, 250, 0.06)">
-                    {project.renderMock()}
-                  </Card>
-                </m.div>
-              </article>
-            );
-          })}
+          {/* Navigation Controls */}
+          <div className="flex items-center justify-center gap-6 pt-8">
+            <button
+              onClick={handlePrev}
+              className={`p-2 rounded-full border border-white/5 bg-neutral-900/40 text-neutral-400 hover:text-white transition-all duration-300 cursor-pointer ${activeAccent.hoverBorder} ${activeAccent.hoverText}`}
+              aria-label="Previous Project"
+            >
+              <ChevronLeft className="w-5 h-5" aria-hidden="true" />
+            </button>
+            <div className="flex gap-2.5">
+              {projectsData.map((proj, idx) => (
+                <button
+                  key={proj.id}
+                  onClick={() => handleDotClick(idx)}
+                  className={`w-2 h-2 rounded-full transition-all duration-500 cursor-pointer ${
+                    idx === activeIndex
+                      ? `${activeAccent.dot} w-6`
+                      : 'bg-white/20 hover:bg-white/40'
+                  }`}
+                  aria-label={`Go to project ${idx + 1}`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={handleNext}
+              className={`p-2 rounded-full border border-white/5 bg-neutral-900/40 text-neutral-400 hover:text-white transition-all duration-300 cursor-pointer ${activeAccent.hoverBorder} ${activeAccent.hoverText}`}
+              aria-label="Next Project"
+            >
+              <ChevronRight className="w-5 h-5" aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
       </div>

@@ -5,9 +5,15 @@ interface CardProps {
   children: React.ReactNode;
   className?: string;
   glowColor?: string;
+  style?: React.CSSProperties;
 }
 
-export const Card: React.FC<CardProps> = ({ children, className = '', glowColor = 'rgba(192, 132, 252, 0.15)' }) => {
+export const Card: React.FC<CardProps> = ({
+  children,
+  className = '',
+  glowColor = 'rgba(192, 132, 252, 0.15)',
+  style = {}
+}) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
 
@@ -24,6 +30,7 @@ export const Card: React.FC<CardProps> = ({ children, className = '', glowColor 
     <motion.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
+      style={style}
       className={`relative rounded-xl border border-white/5 bg-neutral-900/40 backdrop-blur-md overflow-hidden glow-card group transition-all duration-300 hover:border-white/10 ${className}`}
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
