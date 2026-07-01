@@ -11,7 +11,7 @@ interface CardProps {
 export const Card: React.FC<CardProps> = ({
   children,
   className = '',
-  glowColor = 'rgba(192, 132, 252, 0.15)',
+  glowColor = 'var(--app-glow)',
   style = {}
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -31,7 +31,7 @@ export const Card: React.FC<CardProps> = ({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       style={style}
-      className={`relative rounded-xl border border-white/5 bg-neutral-900/40 backdrop-blur-md overflow-hidden glow-card group transition-all duration-300 hover:border-white/10 ${className}`}
+      className={`relative rounded-xl border border-border-dark bg-bg-card/40 backdrop-blur-md overflow-hidden glow-card group transition-all duration-300 hover:border-border-hover ${className}`}
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
@@ -46,7 +46,12 @@ export const Card: React.FC<CardProps> = ({
       />
 
       {/* Internal Grid Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-50" />
+      <div 
+        className="absolute inset-0 bg-[size:24px_24px] pointer-events-none opacity-50"
+        style={{
+          backgroundImage: 'linear-gradient(to right, var(--app-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--app-grid) 1px, transparent 1px)'
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 w-full h-full">
