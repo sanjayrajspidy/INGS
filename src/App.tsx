@@ -9,7 +9,8 @@ import { Toolbox } from './sections/Toolbox';
 import { Certifications } from './sections/Certifications';
 import { Leadership } from './sections/Leadership';
 import { Contact } from './sections/Contact';
-import { Terminal, Menu, X, ArrowUpCircle } from 'lucide-react';
+import { Terminal, Menu, X, ArrowUpCircle, Sun, Moon, Sparkles, Check } from 'lucide-react';
+import { useTheme } from './context/ThemeContext';
 
 const navItems = [
   { label: 'Journey', id: 'journey' },
@@ -21,6 +22,8 @@ const navItems = [
 ];
 
 const App: React.FC = () => {
+  const { theme, setTheme } = useTheme();
+  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const [showLanding, setShowLanding] = useState(true);
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -117,8 +120,70 @@ const App: React.FC = () => {
                   ))}
                 </div>
 
-                {/* Contact Direct button */}
-                <div className="hidden md:block">
+                {/* Desktop Theme & Action Panel */}
+                <div className="hidden md:flex items-center gap-3">
+                  {/* Theme Switcher Desktop Dropdown */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setThemeMenuOpen(!themeMenuOpen)}
+                      className="glass-panel-light p-2.5 rounded-full hover:bg-white/5 border border-white/5 hover:border-white/10 transition-all cursor-pointer flex items-center justify-center text-neutral-400 hover:text-white"
+                      aria-label="Toggle Theme Menu"
+                    >
+                      {theme === 'midnight' && <Moon className="w-4 h-4" />}
+                      {theme === 'frost' && <Sun className="w-4 h-4" />}
+                      {theme === 'neon' && <Sparkles className="w-4 h-4" />}
+                    </button>
+                    
+                    <AnimatePresence>
+                      {themeMenuOpen && (
+                        <>
+                          <div className="fixed inset-0 z-10" onClick={() => setThemeMenuOpen(false)} />
+                          <m.div
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                            transition={{ duration: 0.15, ease: 'easeOut' }}
+                            className="absolute right-0 mt-2 w-48 rounded-xl glass-panel p-3 shadow-2xl border border-white/5 z-20 space-y-2"
+                          >
+                            <div className="text-[10px] uppercase tracking-[0.2em] text-neutral-550 font-mono font-bold px-2 py-1 text-neutral-500">
+                              Appearance
+                            </div>
+                            <div className="space-y-1">
+                              <button
+                                onClick={() => { setTheme('midnight'); setThemeMenuOpen(false); }}
+                                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer text-left ${
+                                  theme === 'midnight' ? 'bg-white/5 text-white' : 'text-neutral-400 hover:bg-white/5 hover:text-white'
+                                }`}
+                              >
+                                <span className="flex items-center gap-2">🌙 Midnight</span>
+                                {theme === 'midnight' && <Check className="w-3.5 h-3.5 text-purple-400" />}
+                              </button>
+                              <button
+                                onClick={() => { setTheme('frost'); setThemeMenuOpen(false); }}
+                                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer text-left ${
+                                  theme === 'frost' ? 'bg-white/5 text-white' : 'text-neutral-400 hover:bg-white/5 hover:text-white'
+                                }`}
+                              >
+                                <span className="flex items-center gap-2">☀ Frost</span>
+                                {theme === 'frost' && <Check className="w-3.5 h-3.5 text-purple-400" />}
+                              </button>
+                              <button
+                                onClick={() => { setTheme('neon'); setThemeMenuOpen(false); }}
+                                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer text-left ${
+                                  theme === 'neon' ? 'bg-white/5 text-white' : 'text-neutral-400 hover:bg-white/5 hover:text-white'
+                                }`}
+                              >
+                                <span className="flex items-center gap-2">💜 Neon</span>
+                                {theme === 'neon' && <Check className="w-3.5 h-3.5 text-purple-400" />}
+                              </button>
+                            </div>
+                          </m.div>
+                        </>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Contact Direct button */}
                   <button
                     onClick={() => scrollTo('contact')}
                     className="glass-panel-light text-xs font-semibold px-4.5 py-2.5 rounded-full hover:bg-white/5 border border-white/5 hover:border-white/10 transition-all cursor-pointer"
@@ -161,6 +226,42 @@ const App: React.FC = () => {
                         {item.label}
                       </button>
                     ))}
+                    {/* Appearance Segment Selector on Mobile */}
+                    <div className="border-t border-white/5 pt-4 mt-2">
+                      <div className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-mono font-bold px-1 mb-2">
+                        Appearance
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 bg-neutral-950/40 p-1 rounded-xl border border-white/5">
+                        <button
+                          onClick={() => setTheme('midnight')}
+                          className={`py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer flex flex-col items-center gap-1 ${
+                            theme === 'midnight' ? 'bg-white/5 text-white border border-white/5 shadow-md' : 'text-neutral-400 border border-transparent'
+                          }`}
+                        >
+                          <span>🌙</span>
+                          <span>Midnight</span>
+                        </button>
+                        <button
+                          onClick={() => setTheme('frost')}
+                          className={`py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer flex flex-col items-center gap-1 ${
+                            theme === 'frost' ? 'bg-white/5 text-white border border-white/5 shadow-md' : 'text-neutral-400 border border-transparent'
+                          }`}
+                        >
+                          <span>☀</span>
+                          <span>Frost</span>
+                        </button>
+                        <button
+                          onClick={() => setTheme('neon')}
+                          className={`py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer flex flex-col items-center gap-1 ${
+                            theme === 'neon' ? 'bg-white/5 text-white border border-white/5 shadow-md' : 'text-neutral-400 border border-transparent'
+                          }`}
+                        >
+                          <span>💜</span>
+                          <span>Neon</span>
+                        </button>
+                      </div>
+                    </div>
+
                     <button
                       onClick={() => scrollTo('contact')}
                       className="w-full bg-white text-black text-center py-2.5 rounded-lg text-sm font-semibold mt-2 hover:bg-neutral-200 transition-colors"
