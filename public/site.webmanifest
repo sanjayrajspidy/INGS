@@ -1,0 +1,17 @@
+{
+  "name": "Chegadapogu Sanjay Portfolio",
+  "short_name": "Sanjay Portfolio",
+  "description": "Software Engineer & AI Developer Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030303",
+  "theme_color": "#030303",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
